@@ -1,0 +1,91 @@
+<!doctype html>
+
+<head>
+    <title>Multiple XY Calibration</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
+    <link href='https://fonts.googleapis.com/css?family=Roboto Mono' rel='stylesheet'>
+    <!-- Bootstrap CDNs -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <!-- To open links in new tab -->
+    <style>
+        body {
+            font-family: 'Roboto Mono';
+            font-size: 20px;
+            padding: 10px;
+        }
+
+        .error {
+            color: red
+        }
+    </style>
+
+</head>
+
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <ul class=flashes>
+        {% for category, message in messages %}
+        <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    <a href="{{ url_for("index") }}">
+        <h1>Mulitple XY Calibration for <i>Aether-1 3D Bio-Printer</i>
+    </a>
+    </h1>
+    <blockquote class="blockquote text-left">
+        <p>
+            A web application to calculate the XY offsets for multiple extruders of <a
+                href="https://discoveraether.com/" target="_blank">Aether-1 3D Bio-Printer</a> using the
+            first extruder as the reference.
+        </p>
+        <p>**NOTE: The application only supports offset calculation for Aether-1 3D Bio-Printer.**</p>
+    </blockquote>
+    <p>
+        The web application attempts to reverse engineer the <a href="https://discoveraether.com/#features_section"
+            target="_blank">Automatic
+            XY Calibration</a> feature provided by Aether itself.
+    </p>
+    <h2>How to use?</h2>
+    <ul>
+        <li>Print the squares on an A4 sheet of paper using the printer in the format shown <a
+                href="{{ url_for('static', filename='before.jpg') }}" target="_blank">here</a>.</li>
+        <li>Draw a reference square of any width(2cm preferred) at the top-left of the first square.</li>
+        <li>Take a photo of the paper from top and crop the regions of interest(<a
+                href="{{ url_for('static', filename='main.jpg') }}" target="_blank">see</a>).</li>
+        <li>Upload the photo on the web app and get the offsets for each extruder.</li>
+    </ul>
+
+    <h2>but how does it work behind the scenes?</h2>
+    <ul>
+        <li>Detect all the squares in the image using OpenCV.</li>
+        <li>Convert <a href="https://en.wikipedia.org/wiki/Pixel_density" target="_blank">Pixel-Per-Inch</a> to
+            Centimeter using a reference square.</li>
+        <li>Calculate the XY offsets for each extruder using 2D Coordinate Geometry(<i>as shown <a
+                    href="{{ url_for('static', filename='example_geometry.png') }}" target="_blank">here</a></i>).</li>
+    </ul>
+    <form method=post enctype=multipart/form-data action="/offsets">
+        <input type=file name=file><br>
+        <label for="offset">Width of Reference Square(in cm):</label>
+        <input type="text" name="width" id="width"><br>
+        <input type=submit value="Get Offsets">
+    </form>
+</body>
+
+</html>

@@ -1,0 +1,100 @@
+<!doctype html>
+
+<head>
+    <title>Multiple XY Calibration</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
+    <link href='https://fonts.googleapis.com/css?family=Roboto Mono' rel='stylesheet'>
+    <!-- Bootstrap CDNs -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <!-- To open links in new tab -->
+    <style>
+        body {
+            font-family: 'Roboto Mono';
+            font-size: 20px;
+            padding: 10px;
+        }
+
+        .column {
+            float: left;
+            width: 50%;
+            padding: 10px;
+            /* Should be removed. Only for demonstration */
+        }
+
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <h1>
+        <a href="{{ url_for("index") }}">
+            Mulitple XY Calibration for <i>Aether-1 3D Bio-Printer</i>
+        </a>
+    </h1>
+
+
+    <div class="row">
+        <div class="column" style="background-color:white;">
+            <h3>X-Offsets:</h3>
+            <ul>
+                <li>Extruder 1: Reference Extrudenr</li>
+                <li>Extruder 2: {{ x_offset[1] }} cm</li>
+                <li>Extruder 3: {{ x_offset[2] }} cm</li>
+                <li>Extruder 4: {{ x_offset[3] }} cm</li>
+                <li>Extruder 5: {{ x_offset[4] }} cm</li>
+                <li>Extruder 6: {{ x_offset[5] }} cm</li>
+                <li>Extruder 7: {{ x_offset[6] }} cm</li>
+                <li>Extruder 8: {{ x_offset[7] }} cm</li>
+            </ul>
+            <h3>Y-Offsets:</h3>
+            <ul>
+                <li>Extruder 1: Reference Extrudenr</li>
+                <li>Extruder 2: {{ y_offset[1] }} cm</li>
+                <li>Extruder 3: {{ y_offset[2] }} cm</li>
+                <li>Extruder 4: {{ y_offset[3] }} cm</li>
+                <li>Extruder 5: {{ y_offset[4] }} cm</li>
+                <li>Extruder 6: {{ y_offset[5] }} cm</li>
+                <li>Extruder 7: {{ y_offset[6] }} cm</li>
+                <li>Extruder 8: {{ y_offset[7] }} cm</li>
+            </ul>
+        </div>
+        <div class="column" style="background-color:white;">
+            <img src="/static/detected.png" alt="Detected Squares" width="700">
+            <br><br>
+            <ul>
+                <li>Extruder 1 Square: Centre - {{ color_names[0] }}</li>
+                <li>Extruder 2 Square: Centre - {{ color_names[1] }}</li>
+                <li>Extruder 3 Square: Centre - {{ color_names[2] }}</li>
+                <li>Extruder 4 Square: Centre - {{ color_names[3] }}</li>
+                <li>Extruder 5 Square: Centre - {{ color_names[4] }}</li>
+                <li>Extruder 6 Square: Centre - {{ color_names[5] }}</li>
+                <li>Extruder 7 Square: Centre - {{ color_names[6] }}</li>
+                <li>Extruder 8 Square: Centre - {{ color_names[7] }}</li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+
+</html>
