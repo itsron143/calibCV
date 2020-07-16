@@ -104,6 +104,9 @@ def get_offsets(center_coordinates, refObj, REF_CENTER_COORDINATE):
 
 def calc_offsets(image, ref_obj_width):
     # Preprocess the Image
+    global COLORS
+    global COLORS_NAMES
+    global TRUE_DIST
     edged = pre_process(image)
 
     # find contours in the edge map
@@ -117,6 +120,7 @@ def calc_offsets(image, ref_obj_width):
     refObj = None
     center_coordinates = []
     i = 0
+    offsets = []
 
     # loop over the contours individually
     for c in cnts:
@@ -145,7 +149,7 @@ def calc_offsets(image, ref_obj_width):
 
         if refObj is not None:
             center_coordinates.append((cX, cY))
-            cv2.circle(image, (cX, cY), 3, COLORS[i], 3)
+            cv2.circle(image, (cX, cY), 3, COLORS[i], 4)
             # print("Square", i+1, "-", COLORS_NAMES[i], "::", "Center -", [cX, cY])
             x_rect, y_rect, w_rect, h_rect = cv2.boundingRect(c)
             cv2.rectangle(
@@ -176,6 +180,9 @@ def calc_offsets(image, ref_obj_width):
 
     REF_CENTER_COORDINATE = tuple(center_coordinates[0])
     center_coordinates = center_coordinates[1:]
+    TRUE_DIST = TRUE_DIST[:len(center_coordinates)]
+    COLORS = COLORS[:len(center_coordinates)]
+    COLORS_NAMES = COLORS_NAMES[:len(center_coordinates)]
     image = true_dist_from_ref_center(image, center_coordinates, REF_CENTER_COORDINATE)
     offsets = get_offsets(center_coordinates, refObj, REF_CENTER_COORDINATE)
     return offsets, image
