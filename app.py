@@ -37,6 +37,7 @@ def index():
 
 @app.route('/offsets', methods=['POST', 'GET'])
 def offsets():
+    global COLORS_NAMES
     error = None
     if request.method == 'POST':
         # check if the post request has the file part
@@ -58,6 +59,7 @@ def offsets():
             x_offset, y_offset = offsets
             x_offset.insert(0, 0)
             y_offset.insert(0, 0)
+            COLORS_NAMES = COLORS_NAMES[:len(x_offset)]
             if os.path.exists('/static/detected.png'):
                 os.remove('/static/detected.png')
             cv2.imwrite(os.path.join("static", 'detected.png'), raw_image)
