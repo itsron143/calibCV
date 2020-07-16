@@ -149,7 +149,7 @@ def calc_offsets(image, ref_obj_width):
 
         if refObj is not None:
             center_coordinates.append((cX, cY))
-            cv2.circle(image, (cX, cY), 3, COLORS[i], 4)
+            cv2.circle(image, (cX, cY), 3, COLORS[i], 5)
             # print("Square", i+1, "-", COLORS_NAMES[i], "::", "Center -", [cX, cY])
             x_rect, y_rect, w_rect, h_rect = cv2.boundingRect(c)
             cv2.rectangle(
