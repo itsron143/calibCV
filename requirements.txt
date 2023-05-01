@@ -1,4 +1,4 @@
-Flask==1.1.2
+Flask==2.3.2
 Werkzeug==1.0.1
 imutils==0.5.3
 opencv_contrib_python==4.2.0.34
